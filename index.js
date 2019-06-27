@@ -14,7 +14,6 @@ const { request } = require('graphql-request')
 const { GraphQLClient } = require('graphql-request')
 
 
-const api_url = 'https://api.primedice.com/graphql';
 
 var apiAccessToken = process.env.ACCESS_TOKEN;
 var username="";
@@ -55,7 +54,9 @@ async function login(req) {
     }
 
    async function doRequest(route, method, body, accessToken){
-        let endpoint =api_url;
+     	const api_url = 'https://api.primedice.com/graphql';
+
+        let endpoint =`${api_url}`;
         let apiAccessToken = process.env.ACCESS_TOKEN;
 
 
