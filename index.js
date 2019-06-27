@@ -18,7 +18,7 @@ const api_url = 'https://api.primedice.com/graphql';
 
 var apiAccessToken = process.env.ACCESS_TOKEN;
 var username="";
-console.log("Access Token:"+accessToken);
+console.log("Access Token:"+apiAccessToken);
 
 
 async function login(req) {
