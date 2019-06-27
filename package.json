@@ -1,10 +1,10 @@
 {
-    "name": "node-api",
-    "main": "index.js",
-    "dependencies": {
-        "express": "^4.16.2",
-        "body-parser": "^1.10.2",
-		"graphql-request": "^1.8.2",
-		"node-fetch": "^0.0.1"
-    }
+	"name": "node-api",
+	"main": "index.js",
+	"dependencies": {
+		"node-fetch": "^0.1.1",
+		"express": "^4.16.2",
+		"body-parser": "^1.10.2",
+		"graphql-request": "^1.8.2"
+	}
 }
