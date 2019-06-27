@@ -64,6 +64,11 @@ async function login(req) {
                 'x-access-token': accessToken,
             },
         })
+
+        console.log("Headers");
+        console.log(graphQLClient.headers);
+
+
         try {
 
         	console.log(body);
