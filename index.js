@@ -125,7 +125,7 @@ router.get('/bet', function(req, res) {
 	req.body.Chance=49.50;
 	req.body.CurrencyValue=3;
 	req.body.HouseEdge=0.01;
-	res.json(bet(req.primediceRoll));
+	res.json(bet(req).primediceRoll);
 });
 
 
