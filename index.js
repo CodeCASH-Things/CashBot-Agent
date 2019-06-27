@@ -56,7 +56,7 @@ async function doRequest(method, body){
 	const api_url = 'https://api.primedice.com/graphql';
 
 	let endpoint =`${api_url}`;
-	let apiAccessToken = process.env.ACCESS_TOKEN;
+	let apiAccessToken = `${process.env.ACCESS_TOKEN}`;
 
 
 	const client = new GraphQLClient(endpoint, {
@@ -67,10 +67,11 @@ async function doRequest(method, body){
 
 
 	client.request(body).
-	then(data => console.log(data))
+	then(data => return data)
 	.catch(err => {
 		console.log(err.response.errors);
 		console.log(err.response.data) ;
+		return err.response;
 	});
 
 
