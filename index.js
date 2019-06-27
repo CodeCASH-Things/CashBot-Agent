@@ -9,6 +9,8 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var accessToken = process.env.ACCESS_TOKEN;
 
+console.log("Access Token:"+accessToken);
+
 
 const { request } = require('graphql-request')
 const { GraphQLClient } = require('graphql-request')
