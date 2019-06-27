@@ -22,7 +22,7 @@ const fetch = wrappedFetch({
 
 
 nodeFetch=wrappedFetch;
-
+module.exports=nodeFetch;
 
 var { request } = require('graphql-request');
 var { GraphQLClient } =require('graphql-request');
