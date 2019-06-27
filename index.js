@@ -21,7 +21,7 @@ console.log("Access Token:"+apiAccessToken);
 
 async function login(req) {
 	let data = "query{user {activeServerSeed { seedHash seed nonce} activeClientSeed{seed} id balances{available{currency amount}} statistic {game bets wins losses amount profit currency}}}";
-	let ret = await doRequest('', 'POST', data);
+	let ret = await doRequest('POST', data);
 	return true;
 }
 
@@ -48,11 +48,11 @@ async function bet(req) {
 	target = parseFloat(target/100).toFixed(2);
 	let data = " mutation{primediceRoll(amount:"+amount+",target:"+target+",condition:"+ condition +",currency:"+currency+ ") { id nonce currency amount payout state { ... on CasinoGamePrimedice { result target condition } } createdAt serverSeed{seedHash seed nonce} clientSeed{seed} user{balances{available{amount currency}} statistic{game bets wins losses amount profit currency}}}}";
 
-	let ret = await doRequest('', 'POST', data);       
+	let ret = await doRequest('POST', data);       
 	return ret;
 }
 
-async function doRequest(route, method, body, accessToken){
+async function doRequest(method, body){
 	const api_url = 'https://api.primedice.com/graphql';
 
 	let endpoint =`${api_url}`;
