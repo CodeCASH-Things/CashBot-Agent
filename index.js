@@ -20,6 +20,10 @@ const api_url = 'https://api.primedice.com/graphql';
 
 
   async function bet(req) {
+
+  		console.log(req);
+
+
         let amount = req.body.PayIn/100000000;
         let condition = req.body.High == "true"?'above':'below';
         let currency = req.body.Currency.toLowerCase();
@@ -47,15 +51,7 @@ const api_url = 'https://api.primedice.com/graphql';
             let res = await graphQLClient.request(body);
             return res;
         } catch(err) {
-            if(err.response.errors) {
-                let errs = new Error(err.response.errors[0].message);
-                errs.value = err.response.errors[0].message;
-                console.log(errs.value);
-            } else {
-                let errs = new Error(err.response.error);
-                errs.value = err.response.error;
-                console.log(errs.value);
-            }
+            console.log(err);
         }
     }
 
