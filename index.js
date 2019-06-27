@@ -10,8 +10,8 @@ var bodyParser = require('body-parser');
 var accessToken = process.env.ACCESS_TOKEN;
 
 
-import request from 'graphql-request'
-import GraphQLClient  from 'graphql-request'
+const { request } = require('graphql-request')
+const { GraphQLClient } = require('graphql-request')
 
 
 const api_url = 'https://api.primedice.com/graphql';
