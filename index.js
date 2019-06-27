@@ -19,7 +19,7 @@ const api_url = 'https://api.primedice.com/graphql';
 
 
 
-  async bet(req) {
+  async function bet(req) {
         let amount = req.body.PayIn/100000000;
         let condition = req.body.High == "true"?'above':'below';
         let currency = req.body.Currency.toLowerCase();
@@ -66,7 +66,7 @@ const api_url = 'https://api.primedice.com/graphql';
         return returnInfo;
     }
 
-   async doRequest(route, method, body, accessToken){
+   async function doRequest(route, method, body, accessToken){
         let endpoint =api_url;
 
         let graphQLClient = new GraphQLClient(endpoint, {
