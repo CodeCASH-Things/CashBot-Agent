@@ -16,6 +16,16 @@ const { GraphQLClient } = require('graphql-request')
 
 const api_url = 'https://api.primedice.com/graphql';
 
+var apiAccessToken = process.env.ACCESS_TOKEN;
+var username="";
+console.log("Access Token:"+accessToken);
+
+
+async function login(req) {
+        let data = "query{user {activeServerSeed { seedHash seed nonce} activeClientSeed{seed} id balances{available{currency amount}} statistic {game bets wins losses amount profit currency}}}";
+        let ret = await doRequest('', 'POST', data, apiAccessToken);
+        return true;
+    }
 
 
 
@@ -39,10 +49,9 @@ const api_url = 'https://api.primedice.com/graphql';
         }
         target = parseFloat(target/100).toFixed(2);
         let data = " mutation{primediceRoll(amount:"+amount+",target:"+target+",condition:"+ condition +",currency:"+currency+ ") { id nonce currency amount payout state { ... on CasinoGamePrimedice { result target condition } } createdAt serverSeed{seedHash seed nonce} clientSeed{seed} user{balances{available{amount currency}} statistic{game bets wins losses amount profit currency}}}}";
-        var accessToken = process.env.ACCESS_TOKEN;
-		console.log("Access Token:"+accessToken);
+     
 
-        let ret = await doRequest('', 'POST', data, accessToken);       
+        let ret = await doRequest('', 'POST', data, apiAccessToken);       
         return ret;
     }
 
@@ -110,6 +119,18 @@ router.get('/bet', function(req, res) {
 	res.json(bet(req));
 });
 
+
+
+router.get('/login', function(req, res) {
+
+	req.body.Currency='eth';
+	req.body.PayIn=1;
+	req.body.High=false;
+	req.body.Chance=49.50;
+	req.body.CurrencyValue=3;
+	req.body.HouseEdge=0.01;
+	res.json(login(req));
+});
 
 // more routes for our API will happen here
 
