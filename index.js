@@ -22,7 +22,7 @@ console.log("Access Token:"+apiAccessToken);
 async function login(req) {
 	let data = "query{user {activeServerSeed { seedHash seed nonce} activeClientSeed{seed} id balances{available{currency amount}} statistic {game bets wins losses amount profit currency}}}";
 	let ret = await doRequest('POST', data);
-	return true;
+	return ret;
 }
 
 
