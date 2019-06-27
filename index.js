@@ -23,7 +23,11 @@ const api_url = 'https://api.primedice.com/graphql';
 
   async function bet(req) {
 
-  		console.log(req);
+  		console.log("PayIn:"+req.body.PayIn);
+  		console.log("High:"+req.body.High);
+  		console.log("Currency:"+req.body.Currency);
+  		console.log("Chance:"+req.body.Chance);
+
 
 
         let amount = req.body.PayIn/100000000;
