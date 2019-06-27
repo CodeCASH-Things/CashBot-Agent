@@ -2,7 +2,7 @@
 	"name": "node-api",
 	"main": "index.js",
 	"dependencies": {
-		"node-fetch": "^0.1.1",
+		"socks5-node-fetch": "0.0.4",
 		"express": "^4.16.2",
 		"body-parser": "^1.10.2",
 		"graphql-request": "^1.8.2"
