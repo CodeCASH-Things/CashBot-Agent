@@ -8,8 +8,27 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 
+
+
+var nodeFetch = require('node-fetch');
+
+var wrappedFetch = require('socks5-node-fetch');
+
+
+const fetch = wrappedFetch({
+    socksHost: process.env.SOCKS_PROXY,
+    socksPort: process.env.SOCKS_PORT
+})
+
+
+nodeFetch=wrappedFetch;
+
+
 var { request } = require('graphql-request');
 var { GraphQLClient } =require('graphql-request');
+
+
+
 
 
 
