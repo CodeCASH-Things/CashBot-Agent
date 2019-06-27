@@ -67,7 +67,9 @@ async function doRequest(method, body){
 
 
 	client.request(body).
-	then(data => return data)
+	then(data => {
+		return data;
+	})
 	.catch(err => {
 		console.log(err.response.errors);
 		console.log(err.response.data) ;
