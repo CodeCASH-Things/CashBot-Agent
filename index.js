@@ -9,9 +9,8 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 
 
+import { request, GraphQLClient } from 'graphql-request';
 
-const { request } = require('graphql-request')
-const { GraphQLClient } = require('graphql-request')
 
 
 
