@@ -8,8 +8,8 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 
-
-import { request, GraphQLClient } from 'graphql-request';
+var { request } = require('graphql-request');
+var { GraphQLClient } =require('graphql-request');
 
 
 
@@ -20,66 +20,61 @@ console.log("Access Token:"+apiAccessToken);
 
 
 async function login(req) {
-        let data = "query{user {activeServerSeed { seedHash seed nonce} activeClientSeed{seed} id balances{available{currency amount}} statistic {game bets wins losses amount profit currency}}}";
-        let ret = await doRequest('', 'POST', data);
-        return true;
-    }
+	let data = "query{user {activeServerSeed { seedHash seed nonce} activeClientSeed{seed} id balances{available{currency amount}} statistic {game bets wins losses amount profit currency}}}";
+	let ret = await doRequest('', 'POST', data);
+	return true;
+}
 
 
 
-  async function bet(req) {
+async function bet(req) {
 
-  		console.log("PayIn:"+req.body.PayIn);
-  		console.log("High:"+req.body.High);
-  		console.log("Currency:"+req.body.Currency);
-  		console.log("Chance:"+req.body.Chance);
-
-
-
-        let amount = req.body.PayIn/100000000;
-        let condition = req.body.High == "true"?'above':'below';
-        let currency = req.body.Currency.toLowerCase();
-        let target = 0;
-        if(req.body.High == "true"){
-            target = 9999-Math.floor((req.body.Chance*100));
-        } else {
-            target = Math.floor((req.body.Chance*100));
-        }
-        target = parseFloat(target/100).toFixed(2);
-        let data = " mutation{primediceRoll(amount:"+amount+",target:"+target+",condition:"+ condition +",currency:"+currency+ ") { id nonce currency amount payout state { ... on CasinoGamePrimedice { result target condition } } createdAt serverSeed{seedHash seed nonce} clientSeed{seed} user{balances{available{amount currency}} statistic{game bets wins losses amount profit currency}}}}";
-     
-        let ret = await doRequest('', 'POST', data);       
-        return ret;
-    }
-
-   async function doRequest(route, method, body, accessToken){
-     	const api_url = 'https://api.primedice.com/graphql';
-
-        let endpoint =`${api_url}`;
-        let apiAccessToken = process.env.ACCESS_TOKEN;
+	console.log("PayIn:"+req.body.PayIn);
+	console.log("High:"+req.body.High);
+	console.log("Currency:"+req.body.Currency);
+	console.log("Chance:"+req.body.Chance);
 
 
-        let graphQLClient = new GraphQLClient(endpoint, {
-            headers: {
-                'x-access-token': accessToken,
-            },
-        })
 
-        console.log("Headers");
-        console.log(graphQLClient.headers);
+	let amount = req.body.PayIn/100000000;
+	let condition = req.body.High == "true"?'above':'below';
+	let currency = req.body.Currency.toLowerCase();
+	let target = 0;
+	if(req.body.High == "true"){
+		target = 9999-Math.floor((req.body.Chance*100));
+	} else {
+		target = Math.floor((req.body.Chance*100));
+	}
+	target = parseFloat(target/100).toFixed(2);
+	let data = " mutation{primediceRoll(amount:"+amount+",target:"+target+",condition:"+ condition +",currency:"+currency+ ") { id nonce currency amount payout state { ... on CasinoGamePrimedice { result target condition } } createdAt serverSeed{seedHash seed nonce} clientSeed{seed} user{balances{available{amount currency}} statistic{game bets wins losses amount profit currency}}}}";
+
+	let ret = await doRequest('', 'POST', data);       
+	return ret;
+}
+
+async function doRequest(route, method, body, accessToken){
+	const api_url = 'https://api.primedice.com/graphql';
+
+	let endpoint =`${api_url}`;
+	let apiAccessToken = process.env.ACCESS_TOKEN;
 
 
-        try {
+	const client = new GraphQLClient(endpoint, {
+		headers: {
+			'x-access-token': apiAccessToken,
+		},
+	})
 
-        	console.log(body);
+
+	client.request(body).
+	then(data => console.log(data))
+	.catch(err => {
+		console.log(err.response.errors);
+		console.log(err.response.data) ;
+	});
 
 
-            let res = await graphQLClient.request(body);
-            return res;
-        } catch(err) {
-            console.log(err);
-        }
-    }
+}
 
 
 
