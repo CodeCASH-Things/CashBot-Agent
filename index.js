@@ -22,6 +22,7 @@ console.log("Access Token:"+apiAccessToken);
 
 
 async function login(req) {
+	var apiAccessToken = process.env.ACCESS_TOKEN;
         let data = "query{user {activeServerSeed { seedHash seed nonce} activeClientSeed{seed} id balances{available{currency amount}} statistic {game bets wins losses amount profit currency}}}";
         let ret = await doRequest('', 'POST', data, apiAccessToken);
         return true;
@@ -50,7 +51,7 @@ async function login(req) {
         target = parseFloat(target/100).toFixed(2);
         let data = " mutation{primediceRoll(amount:"+amount+",target:"+target+",condition:"+ condition +",currency:"+currency+ ") { id nonce currency amount payout state { ... on CasinoGamePrimedice { result target condition } } createdAt serverSeed{seedHash seed nonce} clientSeed{seed} user{balances{available{amount currency}} statistic{game bets wins losses amount profit currency}}}}";
      
-
+        var apiAccessToken = process.env.ACCESS_TOKEN;
         let ret = await doRequest('', 'POST', data, apiAccessToken);       
         return ret;
     }
